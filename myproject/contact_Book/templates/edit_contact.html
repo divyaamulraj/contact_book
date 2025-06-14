@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit {{ contact.name }}</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-cover bg-center text-white" style="background-image: url('{% static 'images/bg.jpg' %}')">
+    <div class="max-w-lg mx-auto mt-20    bg-black/40 p-6 rounded-2xl shadow-2xl ">
+        <h1 class="text-2xl font-bold mb-4 text-center text-blue-300">Edit Contact</h1>
+        <form method="post">
+            {% csrf_token %}
+            {% comment %} {{ form.as_p }} {% endcomment %}
+             <p class="text-xl m-6 text-indigo-50 font-medium"> 
+        {{ form.name.label_tag }}
+        {{ form.name }}
+    </p>
+    
+    <p class="text-xl font-medium text-indigo-50 m-6">
+        {{ form.phone.label_tag }}
+        {{ form.phone }}
+    </p>
+    
+    <p class="text-xl font-medium m-6 text-indigo-50">
+        {{ form.email.label_tag }}
+        {{ form.email }}
+    </p>
+    <p class="text-xl font-medium  m-6 text-indigo-50">
+        {{ form.city.label_tag }}
+        {{ form.city }}
+    </p>
+    <p class="text-xl font-medium m-6 text-indigo-50 ">
+        {{ form.state.label_tag }}
+        {{ form.state }}
+    </p>
+    <div class="container flex flex-row justify-between">
+            <button type="submit" class="px-6 py-4 m-6 font-medium text-xl  bg-emerald-500 text-white rounded-xl hover:bg-emerald-600 transition duration-200"> Save</button>
+            <a href="{% url 'contact_detail' contact_id=contact.id %}" class=" m-6 inline-block text-xl text-white px-4 py-4 font-medium  bg-rose-500 rounded-xl hover:bg-rose-600 transition duration-200" >Cancel</a>
+    </div>
+        </form>
+    </div>
+</body>
+</html>

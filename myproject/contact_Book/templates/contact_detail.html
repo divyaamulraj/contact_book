@@ -1,0 +1,31 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Detail</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-cover bg-center" style="background-image: url('{% static 'images/bg.jpg' %}')">
+    <div class="max-w-md mx-auto mt-20 bg-black/40  p-6 rounded-2xl shadow-black-4xl">
+        
+        <h2 class="text-3xl p-6 text-cyan-500  text-center  font-bold ">{{  contact.name|title }}</h2>
+        <p class="font-medium m-6 text-xl text-cyan-100"><strong>Phone:</strong> {{ contact.phone }}</p>
+        <p class="font-medium m-6 text-xl text-cyan-100 "><strong>Email:</strong> {{ contact.email }}</p>
+        <p class="font-medium m-6 text-xl  text-cyan-100" ><strong>City:</strong> {{ contact.city }}</p>
+        <p class="font-medium m-6 text-xl text-cyan-100"><strong>State:</strong> {{ contact.state }}</p>
+        <div class="container flex flex-row justify-between p-6">
+        <a href="{% url 'index' %}" class="px-6 py-4 font-medium  text-xl bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition duration-200"> Back </a>
+        {% comment %} <a href="{% url 'edit_contact' contact_id=contact.id %}" class="inline-block mt-4 ml-4 bg-blue-500 hover:bg-blue-600 text-black font-semibold py-2 px-4 rounded">✎ Edit</a> {% endcomment %}
+         <a href="{% url 'edit_contact' contact_id=contact.id %}" class="px-6 py-4  text-xl font-medium  bg-emerald-500 text-white rounded-xl hover:bg-emerald-600 transition duration-200" > Edit</a>
+        <form action="{% url 'delete_contact' contact.id %}" method="post" class="inline-block">
+    {% csrf_token %}
+    <button type="submit"  class="px-4 py-4 font-medium text-xl  bg-rose-500 text-white rounded-xl hover:bg-rose-600 transition duration-200">
+        Delete
+    </button>
+</div>
+</form>
+    </div>
+</body>
+</html>

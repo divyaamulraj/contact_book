@@ -1,0 +1,77 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tailwind Test</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body class="min-h-screen bg-cover bg-center" style="background-image: url('{% static 'images/bg.jpg' %}')">
+  
+    <div class="container flex flex-row justify-center mt-20">
+    <form method="GET"  class="flex items-center border-2 border-white rounded-2xl p-2 me-10 hover:shadow-2xl">
+    <input
+    type="text"
+    name="q"
+    placeholder="Search..."
+    value="{{ request.GET.q }}"  
+    class="bg-transparent text-white  placeholder-white outline-none px-2 pe-20 w-full"
+  />
+  <button type="submit">
+    <svg class="h-6 w-6 text-white" viewBox="0 0 24 24" fill="none">
+      <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z"
+        stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </button>
+</form>
+       
+        <a  href="{% url 'addcontact' %}"  class="flex text-white border-2 p-2 border-white bg-indigo-950/30 rounded-3xl hover:shadow-2xl" >Add Contact</a>    
+    </div>
+    <div class="overflow-x-auto ">
+    <table class="min-w-full table-auto border border-gray-300 mt-20 ">
+    <thead class="bg-gray-200">
+      <tr>
+        <th class="px-4 py-2 text-left border border-gray-300">Name</th>
+        <th class="px-4 py-2 text-left border border-gray-300">Phone Number</th>
+        <th class="px-4 py-2 text-left border border-gray-300">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+                {% for contact in contacts %}
+                <tr class=" bg-black/40 border border-b-gray-300  text-white {% if request.GET.q and contact.name|lower|slice:":{{ request.GET.q|length }}" == request.GET.q|lower %}ring-2 ring-yellow-400{% endif %}">
+                    <td class="px-4 py-4 flex items-center ">
+                        {% comment %} <svg class="h-7 w-7 me-2" viewBox="0 0 48 48">
+                            <defs>
+                                <style>.a{fill:white ;stroke:black;stroke-linecap:round;stroke-linejoin:round;}</style>
+                            </defs>
+                            <circle class="a" cx="24" cy="24" r="21.5"  />
+                        </svg> {% endcomment %}
+                        <svg class="h-7 w-7 me-2" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                       <circle cx="24" cy="24" r="21.5" fill="black" stroke="white" stroke-width="2" />
+                       <text x="24" y="29" text-anchor="middle" font-size="20" fill="gray" font-family="Arial" font-weight="bold"> {{ contact.name|first|upper }}</text>
+                       </svg>
+
+                          <a href="{% url 'contact_detail' contact.id %}" class="hover:underline text-amber-100">
+                          {{ contact.name }}
+                          </a>
+                    </td>
+                    <td class="px-4 py-2 text-cyan-200"> <a href="{% url 'contact_detail' contact.id %}" class="hover:underline">
+                          {{ contact.phone }} 
+                          </a></td>
+                    <td class="px-4 py-2 text-green-300 "> <a href="{% url 'contact_detail' contact.id %}" class="hover:underline">
+                         {{ contact.email }}
+                          </a></td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3" class="text-white text-center py-4">No contacts found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+  
+  </table>
+</div>
+
+</body>
+</html>

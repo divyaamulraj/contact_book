@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tailwind Test</title>
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<body  class="min-h-screen bg-cover bg-center" style="background-image: url('{% static 'images/bg.jpg' %}')">
+<form method="POST" action="{% url 'save' %}"class="max-w-xl mx-auto p-6 bg-black/50 rounded-xl  shadow-md space-y-4 mt-30">
+  {% csrf_token %}
+
+  <!-- Name -->
+  <div>
+    <label class="block text-sm font-medium text-white">Name</label>
+    <input type="text" name="name" required
+           class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 text-cyan-300" />
+  </div>
+
+  <!-- Phone Number -->
+  <div>
+    <label class="block text-sm font-medium text-white">Phone Number</label>
+    <input type="tel" name="phone" required pattern="[0-9]{10}"
+       title="Phone number must be 10 digits"
+           class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-xl  focus:outline-none focus:ring-2 focus:ring-blue-400  text-cyan-300" />
+  </div>
+
+  <!-- City -->
+  <div>
+    <label class="block text-sm font-medium text-white">City</label>
+    <input type="text" name="city"
+           class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400  text-cyan-300" />
+  </div>
+
+  <!-- State -->
+  <div>
+    <label class="block text-sm font-medium text-white">State</label>
+    <input type="text" name="state"
+           class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400  text-cyan-300" />
+  </div>
+
+  <!-- Email -->
+  <div>
+    <label class="block text-sm font-medium text-white">Email</label>
+    <input type="email" name="email" required
+           class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400  text-cyan-300" />
+  </div>
+
+  <!-- Buttons -->
+  <div class="flex justify-between ">
+    <div class="flex">
+    <a href="{% url 'index' %}" class="px-6 py-4  font-medium bg-sky-500 text-white rounded-xl hover:bg-sky-600 transition duration-200"> Back </a>
+    </div>
+    <button type="submit"
+            class="px-6 py-4 font-medium  bg-emerald-500 text-white rounded-xl hover:bg-emerald-600 transition duration-200">
+      Save
+    </button>
+   
+  </div>
+   {% comment %} <a href="{% url 'index' %}" class="text-blue-500 hover:underline block mt-4">← Back to Contact List</a> {% endcomment %}
+</form>
+
+<body>
+</html>
