@@ -94,9 +94,15 @@ DATABASES ={
         "NAME":BASE_DIR / "dq.sqlite3",
     }
 }
-database_url =os.environ.get("DATABASE_URL")
+# Get the database URL from environment variable
+database_url = os.environ.get("DATABASE_URL")
+
+# Only use PostgreSQL if DATABASE_URL is provided
+if database_url:
+    DATABASES["default"] = dj_database_url.parse(database_url)
+# database_url =os.environ.get("DATABASE_URL")
 # postgresql://contact_database_v0ux_user:mBWsd1CYzDm4OIR5k1PBPjoWchOyYHot@dpg-d16hjqndiees73d5fhrg-a.oregon-postgres.render.com/contact_database_v0ux")
-DATABASES["default"]=dj_database_url.parse(database_url)
+# DATABASES["default"]=dj_database_url.parse(database_url)
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
