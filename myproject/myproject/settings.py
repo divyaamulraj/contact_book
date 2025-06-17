@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-import dj_database_url
+# import dj_database_url
 from pathlib import Path
 import os
 
@@ -22,13 +22,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-(j4&l$^*75n_p8ux3sx8c@&sy4@)jniduv*5et4=u@wdm_j@7s'
-SECRET_KEY =os.environ.get("SECRET_KEY")
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG","False").lower()=="True"
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split()
-# ALLOWED_HOSTS=os.environ.get("ALLOWED_HOSTS").split(" ")
-# ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
+SECRET_KEY = 'django-insecure-(j4&l$^*75n_p8ux3sx8c@&sy4@)jniduv*5et4=u@wdm_j@7s'
+
+DEBUG = True
+ALLOWED_HOSTS = []
+
 
 
 # Application definition
@@ -51,7 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  
+     
 ]
 
 ROOT_URLCONF = 'myproject.urls'
@@ -77,35 +75,16 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# postgresql://contact_book_vpyt_user:6lHZ4ORR86wKxQ6JqkMgPJrES5Fo2Efb@dpg-d16g3v7diees73d3mblg-a/contact_book_vpyt
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME':'contact',
-#         'USER': 'root',
-#         'PASSWORD': 'Dhivya@28',
-#         'HOST': 'localhost',
-#         'PORT': '3306',  
-#     }
-# }
-DATABASES ={
-    "default":{
-        "ENGINE":"django.db.backends.sqlite3",
-        "NAME":BASE_DIR / "dq.sqlite3",
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME':'contact',
+        'USER': 'root',
+        'PASSWORD': 'Dhivya@28',
+        'HOST': 'localhost',
+        'PORT': '3306',  
     }
 }
-# Get the database URL from environment variable
-database_url = os.environ.get("DATABASE_URL")
-
-# Only use PostgreSQL if DATABASE_URL is provided
-if database_url:
-    DATABASES["default"] = dj_database_url.parse(database_url)
-# database_url =os.environ.get("DATABASE_URL")
-# postgresql://contact_database_v0ux_user:mBWsd1CYzDm4OIR5k1PBPjoWchOyYHot@dpg-d16hjqndiees73d5fhrg-a.oregon-postgres.render.com/contact_database_v0ux")
-# DATABASES["default"]=dj_database_url.parse(database_url)
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -140,14 +119,7 @@ USE_TZ = True
 
 # STATIC_URL = 'static/'
 STATIC_URL = '/static/'
-# STATIC_URL = '/static/'
-STATICFILES_DIRS = [ 
-    BASE_DIR / 'contact_Book/static',
-                     ]
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
